@@ -13,10 +13,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.ft.aem.core.apm.filters;
+package com.ft.sling.core.apm.filters;
 
-import com.ft.aem.core.apm.services.ApmAgent;
-import com.ft.aem.core.apm.services.ApmConfig;
+import com.ft.sling.core.apm.services.ApmAgent;
+import com.ft.sling.core.apm.services.ApmConfig;
 import org.apache.felix.scr.annotations.*;
 import org.apache.felix.scr.annotations.sling.SlingFilter;
 import org.apache.felix.scr.annotations.sling.SlingFilterScope;
@@ -29,24 +29,23 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
  * Simple servlet filter component that logs incoming requests.
  */
 
-
+/**
+ * Filter that logs to APM agents when a component starts rendering as part of an overall transaction
+ */
 @References({@Reference(name = "apmAgent", cardinality = ReferenceCardinality.OPTIONAL_MULTIPLE, policy = ReferencePolicy.DYNAMIC, strategy = ReferenceStrategy.EVENT, referenceInterface=ApmAgent.class, bind="bindApmAgent", unbind="unbindApmAgent")})
-@SlingFilter(scope= SlingFilterScope.INCLUDE, order = Integer.MAX_VALUE,
-        description="Sends APM segment information to provider via filter", name="Apm Component End Filter")
+@SlingFilter(scope= SlingFilterScope.INCLUDE, order = 0,
+        description="Sends APM segment information to provider via filter", name="Apm Component Start Filter")
 @Service(value = Filter.class)
-public class ApmEndComponentFilter implements Filter {
+public class ApmStartComponentFilter implements Filter {
 
-    private static final Logger log = LoggerFactory.getLogger(ApmEndComponentFilter.class);
+    private static final Logger log = LoggerFactory.getLogger(ApmStartComponentFilter.class);
 
     private static final Pattern SERVLET_PATTERN = Pattern.compile("^.+Using servlet (.+)$");
 
@@ -79,6 +78,14 @@ public class ApmEndComponentFilter implements Filter {
 
     }
 
+    /**
+     * starts apm recording of individual component being rendered
+     * @param servletRequest
+     * @param servletResponse
+     * @param filterChain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest servletRequest,
                          ServletResponse servletResponse, FilterChain filterChain)
@@ -94,20 +101,19 @@ public class ApmEndComponentFilter implements Filter {
             }
 
             Servlet servlet = servletResolver.resolveServlet(request);
-
             synchronized (apmAgents) {
                 for(ApmAgent agent : apmAgents) {
                     // only log if agent is enabled
                     if(agent.isEnabled()) {
-                        Object span = request.getAttribute("apm.start.component." + servlet.getServletConfig().getServletName()  + agent.getClass().getSimpleName());
-                        agent.endComponentMetric(span);
-                        log.trace("sent end span metric");
+                        Object result = agent.startComponentMetric(servlet.getServletConfig().getServletName());
+                        request.setAttribute("apm.start.component." + servlet.getServletConfig().getServletName()  + agent.getClass().getSimpleName(), result);
+                        log.trace("sent start span metric");
                     }
                 }
             }
 
         } catch (Exception e) {
-            log.warn("could create apm span", e);
+            log.warn("could not create apm span", e);
         } finally {
             filterChain.doFilter(servletRequest, servletResponse);
         }

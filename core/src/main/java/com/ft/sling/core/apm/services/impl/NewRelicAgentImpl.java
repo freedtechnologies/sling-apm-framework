@@ -1,6 +1,6 @@
-package com.ft.aem.core.apm.services.impl;
+package com.ft.sling.core.apm.services.impl;
 
-import com.ft.aem.core.apm.services.ApmAgent;
+import com.ft.sling.core.apm.services.ApmAgent;
 import org.apache.felix.scr.annotations.*;
 import org.apache.sling.commons.osgi.PropertiesUtil;
 import org.osgi.framework.BundleContext;

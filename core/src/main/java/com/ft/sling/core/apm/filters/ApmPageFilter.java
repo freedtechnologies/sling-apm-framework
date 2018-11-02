@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.ft.aem.core.apm.filters;
+package com.ft.sling.core.apm.filters;
 
 import java.io.IOException;
 import java.util.*;
@@ -25,9 +25,10 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+
+import com.ft.sling.core.apm.services.ApmAgent;
+import com.ft.sling.core.apm.services.ApmConfig;
 import org.apache.commons.lang3.StringUtils;
-import com.ft.aem.core.apm.services.ApmAgent;
-import com.ft.aem.core.apm.services.ApmConfig;
 import org.apache.felix.scr.annotations.*;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.felix.scr.annotations.sling.SlingFilter;
@@ -43,10 +44,8 @@ import org.slf4j.LoggerFactory;
 import org.apache.jackrabbit.JcrConstants;
 
 /**
- * Simple servlet filter component that logs incoming requests.
+ * Filter that sets a custom transaction name for the request in APM software based on a sling property
  */
-
-
 @References({@Reference(name = "apmAgent", cardinality = ReferenceCardinality.OPTIONAL_MULTIPLE, policy = ReferencePolicy.DYNAMIC, strategy = ReferenceStrategy.EVENT, referenceInterface=ApmAgent.class, bind="bindApmAgent", unbind="unbindApmAgent")})
 @SlingFilter(scope= SlingFilterScope.REQUEST, order = Integer.MAX_VALUE,
         description="Sends APM information to provider via filter", name="Apm Page Filter")
@@ -83,6 +82,15 @@ public class ApmPageFilter implements Filter {
 
     }
 
+    /**
+     * Access the sling request log to find the type of request,
+     * then logs the custom transaction name for the pageview to apm agent
+     * @param servletRequest
+     * @param servletResponse
+     * @param filterChain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest servletRequest,
                          ServletResponse servletResponse, FilterChain filterChain)

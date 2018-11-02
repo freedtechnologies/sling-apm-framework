@@ -19,14 +19,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.ft.aem</groupId>
-        <artifactId>aem-apm</artifactId>
+        <artifactId>sling-apm</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>aem-apm.core</artifactId>
+    <artifactId>sling-apm.core</artifactId>
     <packaging>bundle</packaging>
-    <name>aem-apm - Core</name>
-    <description>Core bundle for aem-apm</description>
+    <name>sling-apm - Core</name>
+    <description>Core bundle for sling-apm</description>
     <build>
         <plugins>
             <plugin>

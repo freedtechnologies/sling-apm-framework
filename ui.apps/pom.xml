@@ -22,7 +22,7 @@
     <!-- ====================================================================== -->
     <parent>
         <groupId>com.ft.aem</groupId>
-        <artifactId>aem-apm</artifactId>
+        <artifactId>sling-apm</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -30,10 +30,10 @@
     <!-- ====================================================================== -->
     <!-- P R O J E C T  D E S C R I P T I O N                                   -->
     <!-- ====================================================================== -->
-    <artifactId>aem-apm.ui.apps</artifactId>
+    <artifactId>sling-apm.ui.apps</artifactId>
     <packaging>content-package</packaging>
-    <name>aem-apm - UI apps</name>
-    <description>UI apps package for aem-apm</description>
+    <name>sling-apm - UI apps</name>
+    <description>UI apps package for sling-apm</description>
 
     <!-- <scm>
         <connection></connection>
@@ -92,12 +92,12 @@
                     <filterSource>src/main/content/META-INF/vault/filter.xml</filterSource>
                     <verbose>true</verbose>
                     <failOnError>true</failOnError>
-                    <group>aem-apm</group>
+                    <group>sling-apm</group>
                     <embeddeds>
                         <embedded>
                             <groupId>com.ft.aem</groupId>
-                            <artifactId>aem-apm.core</artifactId>
-                            <target>/apps/aem-apm/install</target>
+                            <artifactId>sling-apm.core</artifactId>
+                            <target>/apps/sling-apm/install</target>
                         </embedded>
                     </embeddeds>
                 </configuration>
@@ -116,7 +116,7 @@
     <dependencies>
         <dependency>
             <groupId>com.ft.aem</groupId>
-            <artifactId>aem-apm.core</artifactId>
+            <artifactId>sling-apm.core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
