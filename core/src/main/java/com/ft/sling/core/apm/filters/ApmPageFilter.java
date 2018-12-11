@@ -56,6 +56,8 @@ public class ApmPageFilter implements Filter {
 
     private static final Pattern SERVLET_PATTERN = Pattern.compile("^.+Using servlet (.+)$");
 
+    private static final String EDITOR_PATH = "/libs/cq/gui/content/editor";
+
     @Reference
     private ApmConfig apmConfig;
 
@@ -109,6 +111,12 @@ public class ApmPageFilter implements Filter {
 
             Resource resource = request.getResource();
 
+            // if this is the editor path, get the resource tied to the url suffix, as that is the page we are rendering
+            if(resource.getPath().equals(EDITOR_PATH)) {
+                String path = request.getRequestPathInfo().getSuffix();
+                path = path.substring(0, path.indexOf("."));
+                resource = request.getResourceResolver().getResource(path);
+            }
             //try to find name of servlet rendering page and jcr primary type since we don't have a resourcetype
 
             //find servlet namke by looking for regex match in the request progress tracker messages
@@ -124,7 +132,7 @@ public class ApmPageFilter implements Filter {
 
             // see if transaction was a page being rendered vs java servlet,
             // page renderings have their servlet start with "/", which is the repo path to the page
-            if(transaction!=null && transaction.startsWith("/")) {
+            if(transaction!=null && transaction.startsWith("/") && resource!=null) {
                 //transaction is a page, not a servlet, get resource type of page if available
                 //see if we can read the resourcetype from resource itself
                 if (!ResourceUtil.isNonExistingResource(resource)) {
@@ -182,6 +190,7 @@ public class ApmPageFilter implements Filter {
     @Modified
     protected void activate(final BundleContext bundleContext,
                             final Map<String, Object> configuration) {
+        log.trace("in activate");
     }
 
     @Override

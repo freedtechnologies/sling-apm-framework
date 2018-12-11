@@ -55,7 +55,7 @@ public class NewRelicAgentImpl implements ApmAgent {
     @Modified
     private void configureService(Map<String, Object> properties) {
         enabled = PropertiesUtil.toBoolean(properties.get(PROPERTY_ENABLED), false);
-        log.trace("enabled:" + enabled);
+        log.info("enabled:" + enabled);
 
     }
 }

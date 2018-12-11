@@ -19,7 +19,7 @@
     <groupId>com.ft.aem</groupId>
     <artifactId>sling-apm</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <description>Allows Sling to report APM to providers</description>
 
     <modules>
@@ -529,7 +529,7 @@
             <dependency>
                 <groupId>co.elastic.apm</groupId>
                 <artifactId>apm-agent-api</artifactId>
-                <version>0.7.0</version>
+                <version>1.0.1</version>
             </dependency>
             <!-- Taglibs -->
             <dependency>

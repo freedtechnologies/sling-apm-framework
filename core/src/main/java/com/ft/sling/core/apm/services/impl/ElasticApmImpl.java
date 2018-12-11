@@ -30,8 +30,6 @@ public class ElasticApmImpl implements ApmAgent {
     @Override
     public void sendPageMetric(HttpServletRequest request, String transaction) {
         Transaction elasticTransaction = ElasticApm.currentTransaction();
-        log.warn(elasticTransaction.toString());
-        log.warn("logging transaction:" + transaction);
         elasticTransaction.setName(transaction);
     }
 
@@ -39,7 +37,6 @@ public class ElasticApmImpl implements ApmAgent {
     public Object startComponentMetric(String transaction) {
         try {
             Span elasticSpan = ElasticApm.currentTransaction().createSpan();
-            log.warn("setting transaction name for span:" + transaction);
             elasticSpan.setType("sling.component");
             elasticSpan.setName(transaction);
             return elasticSpan;
@@ -55,7 +52,6 @@ public class ElasticApmImpl implements ApmAgent {
             return;
         }
         Span elasticSpan = (Span) span;
-        log.warn("ended span");
         elasticSpan.end();
     }
 
@@ -78,6 +74,6 @@ public class ElasticApmImpl implements ApmAgent {
     private void configureService(Map<String, Object> properties) {
         enabled = PropertiesUtil.toBoolean(properties.get(PROPERTY_ENABLED), false);
         logComponents = PropertiesUtil.toBoolean(properties.get(PROPERTY_LOG_COMPONENTS), false);
-        log.warn("enabled:" + enabled);
+        log.info("enabled:" + enabled);
     }
 }
