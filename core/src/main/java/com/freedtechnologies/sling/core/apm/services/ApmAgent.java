@@ -1,4 +1,4 @@
-package com.ft.sling.core.apm.services;
+package com.freedtechnologies.sling.core.apm.services;
 
 import javax.servlet.http.HttpServletRequest;
 

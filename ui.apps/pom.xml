@@ -21,7 +21,7 @@
     <!-- P A R E N T  P R O J E C T  D E S C R I P T I O N                      -->
     <!-- ====================================================================== -->
     <parent>
-        <groupId>com.ft.aem</groupId>
+        <groupId>com.freedtechnologies</groupId>
         <artifactId>sling-apm</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
@@ -67,6 +67,31 @@
             </resource>
         </resources>
         <plugins>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <!--
                 we want to keep some of the META-INF files and not configure
                 everything in the plugin (mainly the filters).
@@ -95,7 +120,7 @@
                     <group>sling-apm</group>
                     <embeddeds>
                         <embedded>
-                            <groupId>com.ft.aem</groupId>
+                            <groupId>com.freedtechnologies</groupId>
                             <artifactId>sling-apm.core</artifactId>
                             <target>/apps/sling-apm/install</target>
                         </embedded>
@@ -115,7 +140,7 @@
     <!-- ====================================================================== -->
     <dependencies>
         <dependency>
-            <groupId>com.ft.aem</groupId>
+            <groupId>com.freedtechnologies</groupId>
             <artifactId>sling-apm.core</artifactId>
             <version>1.0.0</version>
         </dependency>

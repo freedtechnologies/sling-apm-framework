@@ -22,8 +22,8 @@ To use the Sling APM Framework, you can add it directly to AEM, or include it as
 
 ```
 <dependency>
- <groupId>com.ft.aem</groupId>
- <artifactId>sling-apm</artifactId>
+ <groupId>com.freedtechnologies</groupId>
+ <artifactId>sling-apm.ui.apps</artifactId>
  <version>1.0.0</version>
 </dependency>
 ```
@@ -42,8 +42,8 @@ Next, embed the Sling APM package dependency in your deployable content package:
         <configuration>
           <subPackages>
             <subPackage>
-              <groupId>com.ft.aem</groupId>
-              <artifactId>sling-apm</artifactId>
+              <groupId>com.freedtechnologies</groupId>
+              <artifactId>sling-apm.ui.apps</artifactId>
               <filter>true</filter>
             </subPackage>
              </subPackages>

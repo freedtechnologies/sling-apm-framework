@@ -18,7 +18,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.ft.aem</groupId>
+        <groupId>com.freedtechnologies</groupId>
         <artifactId>sling-apm</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
@@ -63,9 +63,6 @@
                     <instructions>
                         <!-- Import any version of javax.inject, to allow running on multiple versions of AEM -->
                         <Import-Package>javax.inject;version=0.0.0,*</Import-Package>
-                        <Sling-Model-Packages>
-                            com.ft.aem.core
-                        </Sling-Model-Packages>
                         <Embed-Dependency>newrelic-api,apm-agent-api</Embed-Dependency>
                     </instructions>
                 </configuration>

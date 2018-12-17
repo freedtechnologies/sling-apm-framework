@@ -1,4 +1,4 @@
-package com.ft.sling.core.apm.filters;
+package com.freedtechnologies.sling.core.apm.filters;
 
 import java.io.IOException;
 import java.util.*;
@@ -11,8 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import com.ft.sling.core.apm.services.ApmAgent;
-import com.ft.sling.core.apm.services.ApmConfig;
+import com.freedtechnologies.sling.core.apm.services.ApmAgent;
+import com.freedtechnologies.sling.core.apm.services.ApmConfig;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.*;
 import org.apache.sling.api.SlingHttpServletRequest;

@@ -1,14 +1,13 @@
-package com.ft.sling.core.apm.filters;
+package com.freedtechnologies.sling.core.apm.filters;
 
-import com.ft.sling.core.apm.services.ApmAgent;
-import com.ft.sling.core.apm.services.ApmConfig;
+import com.freedtechnologies.sling.core.apm.services.ApmAgent;
+import com.freedtechnologies.sling.core.apm.services.ApmConfig;
 import org.apache.felix.scr.annotations.*;
 import org.apache.felix.scr.annotations.sling.SlingFilter;
 import org.apache.felix.scr.annotations.sling.SlingFilterScope;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.servlets.ServletResolver;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
